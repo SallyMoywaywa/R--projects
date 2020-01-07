@@ -1,0 +1,154 @@
+getwd()
+
+library(readxl)
+week_vis_df <- read_excel("Web Analytics Case Student Spreadsheet.xls",sheet="Weekly Visits",skip=4)
+head(week_vis_df)
+
+fin_df <- read_excel("Web Analytics Case Student Spreadsheet.xls",sheet="Financials",skip=4)
+head(fin_df)
+
+lbs_df <- read_excel("Web Analytics Case Student Spreadsheet.xls",sheet="Lbs. Sold",skip=4)
+head(lbs_df)
+
+visits_df <- read_excel("Web Analytics Case Student Spreadsheet.xls",sheet="Daily Visits")
+head(visits_df)
+
+demo_df <- read_excel("Web Analytics Case Student Spreadsheet.xls",sheet="Demographics")
+head(demo_df)
+
+########################################################################
+
+#For Unique Visit
+unique_visit<-week_vis_df[,3]
+unique_visit
+
+#For Revenue
+revenue<-fin_df[,2]
+revenue
+
+#For Profit
+profit<-fin_df[,3]
+profit
+
+#For Lbs
+lbs<-fin_df[,4]
+lbs
+
+#For Promo Dates
+promo<-fin_df[,1]
+promo
+
+#For Visits
+visit<-week_vis_df[,2]
+visit
+
+########################################################################
+
+#Creation of Table 1
+table <- data.frame(unique_visit,revenue,profit,lbs)
+head(table)
+summary(table)
+
+########################################################################
+
+#Creation of Table 2 with Promo dates
+table2<- data.frame(promo,visit,unique_visit,revenue,profit,lbs)
+head(table2)
+
+########################################################################
+
+initial <- table2[1:13,2:6]
+initial
+pre_promo<-table2[14:35,2:6]
+pre_promo
+promotion<-table2[36:51,2:6]
+promotion
+post_promo<-table2[52:66,2:6]
+post_promo
+
+#Visit Means
+initial_vis <- mean(initial[,1])
+initial_vis
+pre_promo_vis <- mean(pre_promo[,1])
+pre_promo_vis
+promotion_vis <- mean(promotion[,1])
+promotion_vis
+post_promo_vis <- mean(post_promo[,1])
+post_promo_vis
+mean_vis <- data.frame(initial_vis,pre_promo_vis,promotion_vis,post_promo_vis)
+
+#Visit Means Dataframe
+mean_vis2<-t(mean_vis)
+mean_vis2
+
+#Unique Visit Means
+initial_uniq <- mean(initial[,2])
+initial_uniq
+pre_promo_uniq <-mean(pre_promo[,2])
+pre_promo_uniq
+promo_uniq <-mean(promotion[,2])
+promo_uniq
+post_promo_uniq <-mean(post_promo[,2])
+post_promo_uniq
+
+#Unique Visit Means Dataframe
+unique_visits_means <- data.frame(initial_uniq, pre_promo_uniq, promo_uniq, post_promo_uniq)
+unique_visits_means
+newunique_visits_means <-(t(unique_visits_means))
+newunique_visits_means
+
+#Revenue Means
+initial_rev <- mean(initial[,3])
+initial_rev
+pre_promo_rev <-mean(pre_promo[,3])
+pre_promo_rev
+promo_rev <-mean(promotion[,3])
+promo_rev
+post_promo_rev <-mean(post_promo[,3])
+post_promo_rev
+
+#Revenue Means Dataframe
+rev_means <- data.frame(initial_rev, pre_promo_rev, promo_rev, post_promo_rev)
+rev_means
+newrev_means <-(t(unique_visits_means))
+newrev_means
+
+#Profit Means
+initial_profit<-mean(initial[,4])
+pre_prom_profit<-mean(pre_promo[,4])
+promotion_profit<-mean(promotion[,4])
+post_promo_profit<-mean(post_promo[,4])
+
+initial_profit
+pre_prom_profit
+promotion_profit
+post_promo_profit
+mean_profit<-data.frame(initial_profit,pre_prom_profit,promotion_profit,post_promo_profit)
+mean_profit
+
+#Profit Means Dataframe
+mean_profit2<-t(mean_profit)
+mean_profit2
+
+#Lbs Means
+initial_lbs <- mean(initial[,5])
+initial_lbs
+pre_promo_lbs <-mean(pre_promo[,5])
+pre_promo_lbs
+promo_lbs <-mean(promotion[,5])
+promo_lbs
+post_promo_lbs <-mean(post_promo[,5])
+post_promo_lbs
+
+#Revenue Means Dataframe
+lbs_means <- data.frame(initial_lbs, pre_promo_lbs, promo_lbs, post_promo_lbs)
+lbs_means
+newlbs_means <-(t(lbs_means))
+newlbs_means
+
+
+########################################################################
+
+table3<- data.frame(mean_vis2[,2],newunique_visits_means[,2],newrev_means[,2],mean_profit2[,2],newlbs_means[,2])
+table3
+
